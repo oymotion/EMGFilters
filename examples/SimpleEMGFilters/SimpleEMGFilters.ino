@@ -35,13 +35,13 @@
 #include "WProgram.h"
 #endif
 
-#include "EMGFilter.h"
+#include "EMGFilters.h"
 
 #define TIMING_DEBUG 1
 
 #define SensorInputPin A0 // input pin number
 
-EMGFilter myFilter;
+EMGFilters myFilter;
 // discrete filters must works with fixed sample frequence
 // our emg filter only support "SAMPLE_FREQ_500HZ" or "SAMPLE_FREQ_1000HZ"
 // other sampleRate inputs will bypass all the EMG_FILTER

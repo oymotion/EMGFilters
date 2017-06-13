@@ -29,12 +29,7 @@
  *
  */
 
-#include "EMGFilter.h"
-
-//#define	NOTCH_FREQ_50HZ		50
-//#define	NOTCH_FREQ_60HZ		60
-//#define	SAMPLE_FREQ_500HZ	500
-//#define	SAMPLE_FREQ_1000HZ	1000
+#include "EMGFilters.h"
 
 // coefficients of transfer function of LPF
 // coef[sampleFreqInd][order]
@@ -191,42 +186,36 @@ FILTER_2nd LPF;
 FILTER_2nd HPF;
 FILTER_4th AHF;
 
-void EMGFilter::init(SAMPLE_FREQUENCY sampleFreq,
+void EMGFilters::init(SAMPLE_FREQUENCY sampleFreq,
                      NOTCH_FREQUENCY  notchFreq,
                      bool             enableNotchFilter,
                      bool             enableLowpassFilter,
                      bool             enableHighpassFilter) {
     m_sampleFreq   = sampleFreq;
     m_notchFreq    = notchFreq;
-    m_bypassEnalbe = true;
-    if ((sampleFreq == SAMPLE_FREQ_500HZ) ||
-        (sampleFreq == SAMPLE_FREQ_1000HZ)) {
-        if ((notchFreq == NOTCH_FREQ_50HZ) || (notchFreq == NOTCH_FREQ_60HZ)) {
-            m_bypassEnalbe = false;
-        }
+    m_bypassEnabled = true;
+    if (((sampleFreq == SAMPLE_FREQ_500HZ) || (sampleFreq == SAMPLE_FREQ_1000HZ)) &&
+        ((notchFreq == NOTCH_FREQ_50HZ) || (notchFreq == NOTCH_FREQ_60HZ))) {
+            m_bypassEnabled = false;
     }
-
-    m_notchFilterEnable    = true;
-    m_lowpassFilterEnable  = true;
-    m_highpassFilterEnable = true;
 
     LPF.init(FILTER_TYPE_LOWPASS, m_sampleFreq);
     HPF.init(FILTER_TYPE_HIGHPASS, m_sampleFreq);
     AHF.init(m_sampleFreq, m_notchFreq);
 
-    m_notchFilterEnable    = enableNotchFilter;
-    m_lowpassFilterEnable  = enableLowpassFilter;
-    m_highpassFilterEnable = enableHighpassFilter;
+    m_notchFilterEnabled    = enableNotchFilter;
+    m_lowpassFilterEnabled  = enableLowpassFilter;
+    m_highpassFilterEnabled = enableHighpassFilter;
 }
 
-int EMGFilter::update(int inputValue) {
+int EMGFilters::update(int inputValue) {
     int output = 0;
-    if (m_bypassEnalbe) {
+    if (m_bypassEnabled) {
         return output = inputValue;
     }
 
     // first notch filter
-    if (m_notchFilterEnable) {
+    if (m_notchFilterEnabled) {
         // output = NTF.update(inputValue);
         output = AHF.update(inputValue);
     } else {
@@ -235,12 +224,12 @@ int EMGFilter::update(int inputValue) {
     }
 
     // second low pass filter
-    if (m_lowpassFilterEnable) {
+    if (m_lowpassFilterEnabled) {
         output = LPF.update(output);
     }
 
     // third high pass filter
-    if (m_highpassFilterEnable) {
+    if (m_highpassFilterEnabled) {
         output = HPF.update(output);
     }
 

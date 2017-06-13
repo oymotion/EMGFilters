@@ -29,8 +29,8 @@
  *
  */
 
-#ifndef _EMGFILTER_H
-#define _EMGFILTER_H
+#ifndef _EMGFILTERS_H
+#define _EMGFILTERS_H
 
 enum NOTCH_FREQUENCY { NOTCH_FREQ_50HZ = 50, NOTCH_FREQ_60HZ = 60 };
 
@@ -41,7 +41,7 @@ enum SAMPLE_FREQUENCY { SAMPLE_FREQ_500HZ = 500, SAMPLE_FREQ_1000HZ = 1000 };
 //        150HZ, and a highpass filter to filter out noise below 20HZ;
 //        You can turn on or off these filters by the init function.
 // \remark Input frequencies of 500HZ and 1000HZ are supported only!
-class EMGFilter {
+class EMGFilters {
   public:
     // \brief Initializes the filter.
     // \param sampleFreq only supports SAMPLE_FREQ_500HZ &
@@ -67,10 +67,10 @@ class EMGFilter {
   private:
     SAMPLE_FREQUENCY m_sampleFreq;
     NOTCH_FREQUENCY  m_notchFreq;
-    bool             m_bypassEnalbe;
-    bool             m_notchFilterEnable;
-    bool             m_lowpassFilterEnable;
-    bool             m_highpassFilterEnable;
+    bool             m_bypassEnabled;
+    bool             m_notchFilterEnabled;
+    bool             m_lowpassFilterEnabled;
+    bool             m_highpassFilterEnabled;
 };
 
 #endif
