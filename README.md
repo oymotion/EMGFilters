@@ -13,10 +13,11 @@ You can turn on or off these filters by the init function.
 **Note**:
 Input frequencies of 500HZ and 1000HZ are supported only!
 
-As you might have known, there has been some powerful DSP libraries already
-(e.g. https://github.com/vinniefalco/DSPFilters). We are NOT going to re-invent
-the wheel! Instead, we're going to provide a set of simplifiled functions that
-allows users to focus on sEMG signal processing with common configurations.
+As you might have known, there has been some existing DSP libraries which provide
+rich set of functions you may need (e.g. https://github.com/vinniefalco/DSPFilters). 
+We are NOT going to re-invent the wheel! Instead, what we're going to provide is 
+a set of simplifiled functions that allows users to focus on sEMG signal processing 
+with common configurations.
 
 ## Usage
 The library is written in standard C++ without dependency of external libraries,
