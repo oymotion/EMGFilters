@@ -19,7 +19,7 @@ the wheel! Instead, we're going to provide a set of simplifiled functions that
 allows users to focus on sEMG signal processing with common configurations.
 
 ## Usage
-The library is written in standard C++ without dependency of any other library,
-so it should be easy to embed it into any other C++ project.
+The library is written in standard C++ without dependency of external libraries,
+so it should be easy to embed it into any C++ project.
 
 A simple sample code for using on Arduino is provided in the `example` folder.
