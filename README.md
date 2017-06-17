@@ -1,6 +1,6 @@
 # EMG Filters
 
-## Brief
+## Overview
 This library provides the following filters for processing OYMotion's sEMG
 signals:
 
@@ -14,13 +14,16 @@ You can turn on or off these filters by the init function.
 Input frequencies of 500HZ and 1000HZ are supported only!
 
 As you might have known, there has been some existing DSP libraries which provide
-rich set of functions you may need (e.g. https://github.com/vinniefalco/DSPFilters). 
-We are NOT going to re-invent the wheel! Instead, what we're going to provide is 
-a set of simplifiled functions that allows users to focus on sEMG signal processing 
-with common configurations.
+rich set of functions you may need (e.g. https://github.com/vinniefalco/DSPFilters).
+We are NOT going to re-invent the wheel! Instead, what we're going to provide is
+a set of simplified functions that allows developers to focus on sEMG signal
+processing with common configurations.
 
-## Usage
-The library is written in standard C++ without dependency of external libraries,
-so it should be easy to embed it into any C++ project.
+## How to Use It
+The library is written in standard C++ without dependency of external
+libraries, so it should be easy to embed it into any C++ project.
 
-A simple sample code for using on Arduino is provided in the `example` folder.
+[A simple sample code for using on Arduino][ArduinoSampleCode] in the `example`
+folder is provided for your reference.
+
+[ArduinoSampleCode]: https://github.com/oymotion/gForceSDKArduino/blob/master/examples/SimpleControlByGesture/SimpleControlByGesture.ino
