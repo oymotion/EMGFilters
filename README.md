@@ -13,9 +13,9 @@ You can turn on or off these filters by the init function.
 **Note**:
 Input frequencies of 500HZ and 1000HZ are supported only!
 
-As you might have known, there has been some existing DSP libraries which provide
-rich set of functions you may need (e.g. https://github.com/vinniefalco/DSPFilters).
-We are NOT going to re-invent the wheel! Instead, what we're going to provide is
+As you might have known, there has been some existing DSP libraries which
+provide rich set of functions you may need (e.g. https://github.com/vinniefalco/DSPFilters).
+Rather than re-inventing the wheel, what we're going to provide is
 a set of simplified functions that allows developers to focus on sEMG signal
 processing with common configurations.
 
@@ -26,4 +26,4 @@ libraries, so it should be easy to embed it into any C++ project.
 [A simple sample code for using on Arduino][ArduinoSampleCode] in the `example`
 folder is provided for your reference.
 
-[ArduinoSampleCode]: https://github.com/oymotion/EMGFilters/blob/master/examples/SimpleEMGFilters/SimpleEMGFilters.ino 
+[ArduinoSampleCode]: https://github.com/oymotion/EMGFilters/blob/master/examples/SimpleEMGFilters/SimpleEMGFilters.ino
