@@ -24,6 +24,20 @@ The library is written in standard C++ without dependency of external
 libraries, so it should be easy to embed it into any C++ project.
 
 [A simple sample code for using on Arduino][ArduinoSampleCode] in the `example`
-folder is provided for your reference.
+folder is provided for your reference. This sample program also helps the user
+calibrate the `baseline` value of input sEMG signals with the maximal value
+druing the user relaxes his/her muscles for a few seconds.
+
+**Note**:
+> After calibration, any squared value of sEMG signal below the `baseline`
+> will be treated as zero.
+
+After calibration, the sample program prints the `envelope`, which is the
+squared values of sEMG sigals, to serial line, from which the user can plot it
+using Arduino `SerialPlotter`.
+
+**Note**:
+> It is recommended that you do calibration every time you wear
+> the sEMG sensor.
 
 [ArduinoSampleCode]: https://github.com/oymotion/EMGFilters/blob/master/examples/SimpleEMGFilters/SimpleEMGFilters.ino
