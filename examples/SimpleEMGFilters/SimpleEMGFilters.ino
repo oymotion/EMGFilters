@@ -37,7 +37,7 @@
 
 #include "EMGFilters.h"
 
-//#define _DEBUG      1
+#define _DEBUG      0
 
 #define SensorInputPin A0 // input pin number
 

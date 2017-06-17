@@ -11,7 +11,7 @@ signals:
 You can turn on or off these filters by the init function.
 
 **Note**:
-Input frequencies of 500HZ and 1000HZ are supported only!
+> Only input frequencies of 500HZ and 1000HZ are supported!
 
 As you might have known, there has been some existing DSP libraries which
 provide rich set of functions you may need (e.g. https://github.com/vinniefalco/DSPFilters).
@@ -24,20 +24,18 @@ The library is written in standard C++ without dependency of external
 libraries, so it should be easy to embed it into any C++ project.
 
 [A simple sample code for using on Arduino][ArduinoSampleCode] in the `example`
-folder is provided for your reference. This sample program also helps the user
-calibrate the `baseline` value of input sEMG signals with the maximal value
-druing the user relaxes his/her muscles for a few seconds.
+folder is provided for your reference.
 
-**Note**:
-> After calibration, any squared value of sEMG signal below the `baseline`
-> will be treated as zero.
+The sample program prints the `envelope`, which is the squared sEMG signal
+data, to serial line. The user can plot it using Arduino `SerialPlotter`.
 
-After calibration, the sample program prints the `envelope`, which is the
-squared sEMG signal data, to serial line. The user can plot it using
-Arduino `SerialPlotter`.
+This sample program also helps the user calibrate the `baseline` value with
+the maximal value of input sEMG signal while he/she is relaxing muscles for
+a few seconds.
 
 **Note**:
 > It is recommended that you do calibration every time you wear
-> the sEMG sensor.
+> the sEMG sensor before using the data. After calibration, any squared
+> value of sEMG signal below the `baseline` will be treated as zero.
 
 [ArduinoSampleCode]: https://github.com/oymotion/EMGFilters/blob/master/examples/SimpleEMGFilters/SimpleEMGFilters.ino
