@@ -33,7 +33,7 @@ druing the user relaxes his/her muscles for a few seconds.
 > will be treated as zero.
 
 After calibration, the sample program prints the `envelope`, which is the
-squared values of sEMG sigals, to serial line, from which the user can plot it
+squared values of sEMG signals, to serial line. The user can plot it
 using Arduino `SerialPlotter`.
 
 **Note**:
