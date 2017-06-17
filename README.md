@@ -26,4 +26,4 @@ libraries, so it should be easy to embed it into any C++ project.
 [A simple sample code for using on Arduino][ArduinoSampleCode] in the `example`
 folder is provided for your reference.
 
-[ArduinoSampleCode]: https://github.com/oymotion/gForceSDKArduino/blob/master/examples/SimpleControlByGesture/SimpleControlByGesture.ino
+[ArduinoSampleCode]: https://github.com/oymotion/EMGFilters/blob/master/examples/SimpleEMGFilters/SimpleEMGFilters.ino 
