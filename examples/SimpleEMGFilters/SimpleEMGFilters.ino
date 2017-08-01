@@ -89,9 +89,6 @@ void setup() {
 
     // open serial
     Serial.begin(115200);
-
-    // Setup time interval to
-    interval = 1000000ul / sampleRate;
 }
 
 void loop() {
