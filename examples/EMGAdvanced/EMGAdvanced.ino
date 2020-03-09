@@ -42,22 +42,20 @@
 
 #define SerialToUSB Serial
 
-
+// Analog input pins
 int SensorInputPins[] = {A0, A1};
-
-#define INITIAL_DC_VAL 1000
-
 
 #define ARR_SIZE(a) (sizeof(a) / sizeof(a[0]))
 
+// Cycle buffer
 typedef struct
 {
   uint8_t index;
-  uint16_t buf[64]; /* ADC AC分量整流后的值，用于计算包络线 */
-  uint32_t sum;
+  uint16_t buf[64]; /* Buffer for rectified AC value */
+  uint32_t sum;     /* Sum for fast caculation of mean value */
 } CycleBuf_t;
 
-/* Append to cycle buffer */
+// Append to cycle buffer
 #define CYCLE_BUF_ADD(cb, val)                    \
   {                                               \
     cb.sum -= cb.buf[cb.index];                   \
@@ -66,10 +64,10 @@ typedef struct
     cb.index = (cb.index + 1) % ARR_SIZE(cb.buf); \
   }
 
-
 /* Get mean value of cycle buffer */
 #define CYCLE_BUF_MEAN(cb) (cb.sum / ARR_SIZE(cb.buf))
 
+CycleBuf_t rectifiedAcBuf[ARR_SIZE(SensorInputPins)];
 
 
 // IMPORTANT NOTE: Please unplug any power adapters when using sEMG sensors.
@@ -97,8 +95,6 @@ unsigned long long interval = 1000000ul / sampleRate;
 //
 // For countries with 60Hz power line, change to "NOTCH_FREQ_60HZ"
 NOTCH_FREQUENCY humFreq = NOTCH_FREQ_50HZ;
-
-CycleBuf_t rectifiedAcBuf[ARR_SIZE(SensorInputPins)];
 
 
 void setup() {
@@ -134,12 +130,13 @@ void loop() {
     dataAfterFilter = myFilter[i].update(data);
 
     // Rectification
-    CYCLE_BUF_ADD(rectifiedAcBuf[i], abs(dataAfterFilter) * 4);
+    CYCLE_BUF_ADD(rectifiedAcBuf[i], abs(dataAfterFilter));
 
-    uint16_t envelope = CYCLE_BUF_MEAN(rectifiedAcBuf[i]);
+    // Simple envelope calculation, use 2 * rectified value
+    uint16_t envelope = CYCLE_BUF_MEAN(rectifiedAcBuf[i]) * 2;
 
 #if !_DEBUG
-    SerialToUSB.print(128 + dataAfterFilter); // offset = 128
+    SerialToUSB.print(128 + dataAfterFilter); // Draw offset = 128
     SerialToUSB.print(" ");
     SerialToUSB.print(envelope);
     SerialToUSB.print(" ");
