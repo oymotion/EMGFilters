@@ -75,7 +75,10 @@ EMGFilters myFilter;
 SAMPLE_FREQUENCY sampleRate = SAMPLE_FREQ_1000HZ;
 
 // Time interval for processing the input signal.
-unsigned long long interval = 1000000ul / sampleRate;
+unsigned long interval = 1000000ul / sampleRate;
+
+// Value of micros() right before taking a sample.
+unsigned long timeStamp;
 
 // Set the frequency of power line hum to filter out.
 //
@@ -89,12 +92,12 @@ void setup() {
 
     // open serial
     Serial.begin(115200);
+
+    // Initial timestamp.
+    timeStamp = micros();
 }
 
 void loop() {
-    // Note: `micros()` will overflow and reset every about 70 minutes.
-    unsigned long long timeStamp = micros();
-
     int data = analogRead(SensorInputPin);
 
     // filter processing
@@ -104,7 +107,6 @@ void loop() {
     int envelope = sq(dataAfterFilter);
 
     if (CALIBRATE) {
-        Serial.print("Squared Data: ");
         Serial.println(envelope);
     }
     else {
@@ -119,11 +121,16 @@ void loop() {
 
     // Usually, you should still have (interval - timeElapsed) to do other work.
     // Otherwise, you would have to lower down the `sampleRate`.
-    unsigned long long timeElapsed = micros() - timeStamp;
+    unsigned long timeElapsed = micros() - timeStamp;
 #if _DEBUG
     Serial.print("Filters cost time: ");
     Serial.println(timeElapsed);
+    Serial.flush();
+    timeStamp = micros();
 #else
-    delay((interval - timeElapsed) / 1000);
+    if (interval > timeElapsed) {
+        delayMicroseconds(interval - timeElapsed);
+    }
+    timeStamp += interval;
 #endif
 }
