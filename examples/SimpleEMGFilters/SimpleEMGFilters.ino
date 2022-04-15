@@ -98,10 +98,10 @@ void loop() {
     int data = analogRead(SensorInputPin);
 
     // filter processing
-    int dataAfterFilter = myFilter.update(data);
+    long dataAfterFilter = myFilter.update(data);
 
     // Get envelope by squaring the input
-    int envelope = sq(dataAfterFilter);
+    long envelope = sq(dataAfterFilter);
 
     if (CALIBRATE) {
         Serial.print("Squared Data: ");
